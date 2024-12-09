@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+char *ChargerChaine(int M)
+{
+// n+1تخصيص ذاكرة لتخزين سلسلة نصية
+  char *charchar = (char*)malloc((M  ) * sizeof(char)); 
+  printf("Donner un mot avec %d lettres:",M);    
+  scanf("%s", charchar);
+  if(strlen(charchar)>M)
+  {
+   printf("Le texte est trop long ");
+  }
+  else
+  {
+   return charchar;
+  }
+}
+void InverserTab(char M [], char T[], int m)
+{
+/*
+ عكس محتويات مصفوفة 
+ Mالمصفوفة الاصلية t المصفوفة المعاكسة
+*/
+  for (int i = 0; i < m; i++) 
+  {
+   T[i] = M [m-i-1];
+  }
+}
+void ChargerTab(char *p, char M[])
+{
+    //نسخ محتويات السلسلة النصية إلى المصفوفة 
+  for(int i=0;i<strlen(p);i++)
+  M[i]=p[i];
+}
+int Longueur(char *ch)
+{
+  int length = 0;
+   while (ch[length] != '\0')
+    {
+        length++;
+    }
+    return length;
+}
+void AfficherTab(char Tab[], int m)
+{
+//طباعة الجدول
+  for (int i = 0; i < m; i++) 
+  {
+   printf("%c", Tab[i]);	   
+  }
+printf("\n");
+}
+int main()
+{
+  char *ch;
+  int n;
+  printf("Insérez le nombre maximum d'éléments dans le tableau:");
+  scanf("%d",&n); 
+  ch=ChargerChaine(n);
+  int m=Longueur(ch);
+  char Tab[m], T[m];
+  ChargerTab(ch,Tab);
+  AfficherTab(ch,m);
+  InverserTab(Tab,T,m);
+  AfficherTab(T,m);
+  free(ch);
+}
