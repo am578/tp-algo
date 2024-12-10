@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct element
+{
+    int val;
+    struct element *suivant;
+} element;
+// دالة لإنشاء قائمة فارغة
+element* creerListe() 
+{
+    return NULL; 
+}
+
+// دالة لملء القائمة من مصفوفة الأعداد
+element* chargerListe(int Tab[], int taille, element* liste) {
+      element* courant = liste;// مؤشر يتحرك خلال القائمة
+      for (int i = 0; i < taille; i++) 
+      {
+        element* nouveau = (element*)malloc(sizeof(element));
+         if (nouveau == NULL) 
+         {
+            printf("Erreur d'allocation mémoire.\n");
+            exit(1);
+        }
+        nouveau->val = Tab[i];
+        nouveau->suivant = NULL;
+
+        if (liste == NULL)
+        {
+            liste = nouveau; // إذا كانت القائمة فارغة نبدأ 
+            courant = liste;
+        }
+        else 
+        {
+            courant->suivant = nouveau;
+            // نضيف العنصر في نهاية القائمة
+            courant = nouveau;
+        }
+    }
+    return liste;
+}
+
+// دالة لعرض عناصر القائمة
+void afficherListe(element* liste)
+{
+    element* courant = liste;
+    while (courant)
+    {
+        printf("%d -> ", courant->val);
+        courant = courant->suivant;
+    }
+    printf("NULL\n");
+}
+
+// دالة لحذف العنصر الأخير من القائمة
+element* supprimerEnFin(element* liste) 
+{
+    if (liste == NULL)
+    {
+        return NULL;
+    }
+
+    if (liste->suivant == NULL)
+    {
+        free(liste);
+        return NULL;
+    }
+
+    element* courant = liste;
+    while (courant->suivant && courant->suivant->suivant)
+    {
+        courant = courant->suivant;
+    }
+
+    free(courant->suivant);
+    courant->suivant = NULL;
+    return liste;
+}
+
+// دالة لإضافة الرقم 40 في بداية القائمة
+element* ajouterEnDebut(element* liste, int valeur) 
+{
+    element* nouveau = (element*)malloc(sizeof(element));
+    if (nouveau == NULL)
+    {
+        printf("Erreur d'allocation mémoire.\n");
+        exit(1);
+    }
+    nouveau->val = valeur;
+    nouveau->suivant = liste;
+    return nouveau;
+}
+
+// دالة لتفريغ القائمة مع الرسالة المطلوبة
+void viderListe(element* liste)
+{
+    element* courant = liste;
+    while (courant) 
+    {
+        element* temp = courant;
+        courant = courant->suivant;
+        free(temp);
+    }
+    printf("La liste est vide\n");
+}
+
+int main()
+{
+    int Tab[10] = {1, 3, 5, 7, 8, 10, 9, 11, 13, 20};
+    element* liste = creerListe();// إنشاء قائمة فارغة
+    // ملء القائمة من المصفوفة
+    element* L = chargerListe(Tab, 10, liste);
+    afficherListe(L); // عرض عناصر القائمة بعد تحميلها
+    // حذف العنصر الأخير من القائمة
+    element* L1 = supprimerEnFin(L);  
+    // عرض عناصر القائمة بعد حذف العنصر الأخير
+    afficherListe(L1); 
+    // إضافة الرقم 40 في بداية القائمة
+    element* L2 = ajouterEnDebut(L1, 40);
+    // عرض القائمة بعد إضافة الرقم 40
+    afficherListe(L2);
+    // تفريغ القائمة
+    viderListe(L2);
+    return 0;
+}
