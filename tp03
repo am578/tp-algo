@@ -77,7 +77,6 @@ element* supprimerEnFin(element* liste)
     return liste;
 }
 
-// دالة لإضافة الرقم 40 في بداية القائمة
 element* ajouterEnDebut(element* liste, int valeur) 
 {
     element* nouveau = (element*)malloc(sizeof(element));
