@@ -5,7 +5,7 @@
 char *ChargerChaine(int N){
 char *ch = (char*)malloc((N  ) * sizeof(char)); 
     scanf("%s", ch);
-return charchar;
+return ch;
 }
 //un function qui envers a tableau 
 void InverserTab(char Tab[], char T[], int m){
